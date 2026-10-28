@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deductible and Out-of-Pocket Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Deductible and out-of-pocket tracker</h1>
+  <p class="sub">Log medical claims and see how much of your annual deductible and out-of-pocket maximum you have used. Claims are applied in date order. Estimates only, not a replacement for your Explanation of Benefits.</p>
+
+  <section class="panel" aria-label="Plan settings">
+    <h2>Plan settings</h2>
+    <div class="fields">
+      <div><label for="ded">Annual deductible ($)</label><input id="ded" type="number" min="0" step="50" value="1500"></div>
+      <div><label for="oop">Out-of-pocket maximum ($)</label><input id="oop" type="number" min="0" step="50" value="5000"></div>
+      <div><label for="coins">Coinsurance you pay (%)</label><input id="coins" type="number" min="0" max="100" value="20"></div>
+    </div>
+    <div class="err" id="planErr" role="alert"></div>
+  </section>
+
+  <section class="panel" aria-label="Progress" aria-live="polite">
+    <h2>Progress this plan year</h2>
+    <div class="meter">
+      <div class="mhead"><span>Deductible</span><span id="dedText"></span></div>
+      <div class="bar"><div class="fill ded" id="dedBar"></div></div>
+      <div class="note" id="dedNote"></div>
+    </div>
+    <div class="meter">
+      <div class="mhead"><span>Out-of-pocket maximum</span><span id="oopText"></span></div>
+      <div class="bar"><div class="fill oop" id="oopBar"></div></div>
+      <div class="note" id="oopNote"></div>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Add a claim">
+    <h2>Add a claim</h2>
+    <div class="fields">
+      <div><label for="date">Date of service</label><input id="date" type="date"></div>
+      <div><label for="desc">Description</label><input id="desc" type="text" placeholder="e.g. MRI, knee"></div>
+      <div><label for="type">Claim type</label>
+        <select id="type">
+          <option value="standard">Standard (deductible + coinsurance)</option>
+          <option value="copay">Copay visit</option>
+          <option value="preventive">Preventive (covered 100%)</option>
+        </select></div>
+      <div><label for="allowed">Allowed amount ($)</label><input id="allowed" type="number" min="0" step="0.01" placeholder="0.00"></div>
+      <div id="copayWrap" hidden><label for="copay">Copay ($)</label><input id="copay" type="number" min="0" step="0.01" value="30"></div>
+    </div>
+    <div class="err" id="claimErr" role="alert"></div>
+    <div class="actions">
+      <button id="add" type="button">Add claim</button>
+      <button id="sample" type="button" class="ghost">Load sample claims</button>
+      <button id="reset" type="button" class="ghost">Clear all claims</button>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Claims">
+    <h2>Claims</h2>
+    <div class="wrap" id="claims"></div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
